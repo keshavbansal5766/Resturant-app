@@ -1,0 +1,26 @@
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  ul {
+    display: flex;
+
+    li {
+      list-style-type: none;
+      padding: 5px;
+
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.footer-wrapper {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  background-color: #fff;
+}

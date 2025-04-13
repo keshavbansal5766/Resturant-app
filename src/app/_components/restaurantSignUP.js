@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 
 const RestaurantSignUp = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [c_password, setC_password] = useState("");
+  const [name, setName] = useState("");
+  const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [contact, setContact] = useState("");
+
+  const handleSignUp = () => {
+    console.log(email, password, c_password, name, city, address, contact);
+
+    setEmail("");
+    setPassword("");
+    setC_password("");
+    setName("");
+    setCity("");
+    setAddress("");
+    setContact("");
+  };
   return (
     <>
       {" "}
@@ -8,6 +27,8 @@ const RestaurantSignUp = () => {
       <div>
         <div className="input-wrapper">
           <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="input-field"
             type="text"
             placeholder="Enter email id"
@@ -15,6 +36,8 @@ const RestaurantSignUp = () => {
         </div>
         <div className="input-wrapper">
           <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="input-field"
             type="password"
             placeholder="Enter password"
@@ -22,6 +45,8 @@ const RestaurantSignUp = () => {
         </div>
         <div className="input-wrapper">
           <input
+            value={c_password}
+            onChange={(e) => setC_password(e.target.value)}
             className="input-field"
             type="password"
             placeholder="Confirm password"
@@ -29,16 +54,26 @@ const RestaurantSignUp = () => {
         </div>
         <div className="input-wrapper">
           <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="input-field"
             type="text"
             placeholder="Enter resturant name "
           />
         </div>
         <div className="input-wrapper">
-          <input className="input-field" type="text" placeholder="Enter city" />
+          <input
+            className="input-field"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            type="text"
+            placeholder="Enter city"
+          />
         </div>
         <div className="input-wrapper">
           <input
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             className="input-field"
             type="text"
             placeholder="Enter full address"
@@ -46,13 +81,15 @@ const RestaurantSignUp = () => {
         </div>
         <div className="input-wrapper">
           <input
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
             className="input-field"
-            type="number"
+            type="text"
             placeholder="Enter contact No."
           />
         </div>
         <div className="input-wrapper">
-          <button className="button">Sign Up</button>
+          <button onClick={handleSignUp} className="button">Sign Up</button>
         </div>
       </div>
     </>

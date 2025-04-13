@@ -9,8 +9,17 @@ const RestaurantSignUp = () => {
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
 
-  const handleSignUp = () => {
-    console.log(email, password, c_password, name, city, address, contact);
+  const handleSignUp = async () => {
+    let result = await fetch("http://localhost:3000/api/restaurant", {
+      method: "POST",
+      body: JSON.stringify({ email, password, name, city, address, contact }),
+    });
+
+    result = await result.json();
+
+    if (result.success) {
+      alert("Restaurant Registered Successfully");
+    }
 
     setEmail("");
     setPassword("");
@@ -89,7 +98,9 @@ const RestaurantSignUp = () => {
           />
         </div>
         <div className="input-wrapper">
-          <button onClick={handleSignUp} className="button">Sign Up</button>
+          <button onClick={handleSignUp} className="button">
+            Sign Up
+          </button>
         </div>
       </div>
     </>

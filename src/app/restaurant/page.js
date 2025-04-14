@@ -5,7 +5,6 @@ import RestaurantSignUp from "../_components/RestaurantSignUp";
 import ResturantHeader from "../_components/RestaurantHeader";
 import "./style.css";
 import RestaurantFooter from "../_components/RestaurantFooter";
-import { useRouter } from "next/navigation";
 
 const Restaurant = () => {
   const [login, setLogin] = useState(true);

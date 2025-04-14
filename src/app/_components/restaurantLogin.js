@@ -1,9 +1,12 @@
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const RestaurantLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [invalidError, setInvalidError] = useState(false);
+  const router = useRouter();
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -20,10 +23,13 @@ const RestaurantLogin = () => {
 
     response = await response.json();
     if (response.success) {
-      alert("Login done");
-      console.log(response.result);
+      const { result } = response;
+      delete result.password;
+      localStorage.setItem("restaurantUser", JSON.stringify(result));
+      router.push("/restaurant/dashboard");
+    } else {
+      setInvalidError(true);
     }
-    console.log(email, password);
     setEmail("");
     setPassword("");
   };
@@ -43,6 +49,9 @@ const RestaurantLogin = () => {
           {error && !email && (
             <span className="input-error">Please enter email</span>
           )}
+          {invalidError && (
+            <span className="input-error">Invalid Credentials</span>
+          )}
         </div>
         <div className="input-wrapper">
           <input
@@ -54,6 +63,9 @@ const RestaurantLogin = () => {
           />
           {error && !password && (
             <span className="input-error">Please enter password</span>
+          )}
+          {invalidError && (
+            <span className="input-error">Invalid Credentials</span>
           )}
         </div>
         <div className="input-wrapper">

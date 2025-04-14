@@ -67,7 +67,7 @@ const RestaurantSignUp = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="input-field"
-            type="email"
+            type="text"
             placeholder="Enter email id"
           />
           {error && !email && (

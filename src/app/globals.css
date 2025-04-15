@@ -36,3 +36,7 @@ td {
   border-collapse: collapse;
   padding: 10px;
 }
+
+table img {
+  width: 80px;
+}

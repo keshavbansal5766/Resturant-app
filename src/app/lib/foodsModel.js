@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+import mongoose from "mongoose";
 
 const foodModel = new mongoose.Schema({
   name: String,

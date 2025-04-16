@@ -1,42 +1,22 @@
-import React, { useState } from "react";
+"use client";
+import '../../style.css'
 
-const AddFoodItem = ({ setAddItem }) => {
+import { useState } from "react";
+
+const EditFoodItem =  ({params, searchParams}) => {
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [path, setPath] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(false);
 
-  const handleAddFoodItem = async () => {
+  const handleEditFoodItem = async () => {
     if (!name || !path || !price || !description) {
       setError(true);
       return false;
     } else {
       setError(false);
-    }
-
-    let resto_id;
-    const restaurantData = JSON.parse(localStorage.getItem("restaurantUser"));
-    if (restaurantData) {
-      resto_id = restaurantData._id;
-    }
-    let response = await fetch("http://localhost:3000/api/restaurant/foods", {
-      method: "POST",
-      body: JSON.stringify({
-        name,
-        price,
-        img_path: path,
-        description,
-        resto_id,
-      }),
-    });
-
-    response = await response.json();
-    if (response.success) {
-      alert("food item is added");
-      setAddItem(false);
-    } else {
-      alert("food item not added");
     }
 
     setName("");
@@ -47,7 +27,7 @@ const AddFoodItem = ({ setAddItem }) => {
 
   return (
     <div className="container">
-      <h1>Add New Food Item</h1>
+      <h1>Edit Food Item</h1>
       <div className="input-wrapper">
         <input
           type="text"
@@ -97,12 +77,12 @@ const AddFoodItem = ({ setAddItem }) => {
         )}
       </div>
       <div className="input-wrapper">
-        <button className="button" onClick={handleAddFoodItem}>
-          Add Food Item
+        <button className="button" onClick={handleEditFoodItem}>
+          Update Food Item
         </button>
       </div>
     </div>
   );
 };
 
-export default AddFoodItem;
+export default EditFoodItem;

@@ -20,6 +20,22 @@ const FoodItemList = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    let response = await fetch(
+      `http://localhost:3000/api/restaurant/foods/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    response = await response.json();
+    if (response.success) {
+      loadFoodItems();
+    } else {
+      alert('food is not deleted')
+    }
+  };
+
   return (
     <div>
       <h1>Food Items</h1>
@@ -46,7 +62,14 @@ const FoodItemList = () => {
                   <img src={item.img_path} alt={`${item.name} image`} />
                 </td>
                 <td>
-                  <button>Delete</button> <button>Edit</button>
+                  <button
+                    onClick={() => {
+                      handleDelete(item._id);
+                    }}
+                  >
+                    Delete
+                  </button>{" "}
+                  <button>Edit</button>
                 </td>
               </tr>
             </tbody>

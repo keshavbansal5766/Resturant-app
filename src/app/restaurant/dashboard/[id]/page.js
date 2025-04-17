@@ -1,6 +1,6 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../style.css";
 
 const EditFoodItem = () => {
@@ -11,6 +11,24 @@ const EditFoodItem = () => {
   const [error, setError] = useState(false);
   const params = useParams();
   const router = useRouter();
+
+  useEffect(() => {
+    handleLoadFoodItem();
+  }, []);
+
+  const handleLoadFoodItem = async () => {
+    let response = await fetch(
+      `http://localhost:3000/api/restaurant/foods/edit/${params.id}`
+    );
+
+    response = await response.json();
+    if (response.success) {
+      setName(response.result.name);
+      setPrice(response.result.price);
+      setPath(response.result.img_path);
+      setDescription(response.result.description);
+    }
+  };
 
   const handleEditFoodItem = async () => {
     if (!name || !path || !price || !description) {
@@ -25,7 +43,7 @@ const EditFoodItem = () => {
     setPath("");
     setDescription("");
   };
-  console.log(params.id);
+  console.log();
 
   return (
     <div className="container">

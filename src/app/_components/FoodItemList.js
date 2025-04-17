@@ -1,7 +1,9 @@
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const FoodItemList = () => {
   const [foodItems, setFoodItems] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     loadFoodItems();
@@ -32,8 +34,12 @@ const FoodItemList = () => {
     if (response.success) {
       loadFoodItems();
     } else {
-      alert('food is not deleted')
+      alert("food is not deleted");
     }
+  };
+
+  const handleEdit = (id) => {
+    router.push(`/restaurant/dashboard/${id}`);
   };
 
   return (
@@ -68,8 +74,8 @@ const FoodItemList = () => {
                     }}
                   >
                     Delete
-                  </button>{" "}
-                  <button>Edit</button>
+                  </button>
+                  <button onClick={() => handleEdit(item._id)}>Edit</button>
                 </td>
               </tr>
             </tbody>

@@ -1,15 +1,16 @@
 "use client";
-import '../../style.css'
+import { useParams, useRouter } from "next/navigation";
+import React, { useState } from "react";
+import "../../style.css";
 
-import { useState } from "react";
-
-const EditFoodItem =  ({params, searchParams}) => {
-
+const EditFoodItem = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [path, setPath] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(false);
+  const params = useParams();
+  const router = useRouter();
 
   const handleEditFoodItem = async () => {
     if (!name || !path || !price || !description) {
@@ -24,10 +25,11 @@ const EditFoodItem =  ({params, searchParams}) => {
     setPath("");
     setDescription("");
   };
+  console.log(params.id);
 
   return (
     <div className="container">
-      <h1>Edit Food Item</h1>
+      <h1>Update Food Item</h1>
       <div className="input-wrapper">
         <input
           type="text"
@@ -79,6 +81,16 @@ const EditFoodItem =  ({params, searchParams}) => {
       <div className="input-wrapper">
         <button className="button" onClick={handleEditFoodItem}>
           Update Food Item
+        </button>
+      </div>
+      <div className="input-wrapper">
+        <button
+          className="button"
+          onClick={() => {
+            router.push("../dashboard");
+          }}
+        >
+          Back to Food Item List
         </button>
       </div>
     </div>

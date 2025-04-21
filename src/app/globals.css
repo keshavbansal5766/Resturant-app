@@ -101,17 +101,36 @@ table img {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin: auto;
-    width: 70%;
+    width: 60%;
 
     .select-input {
-      width: 30%;
+      width: 25%;
       height: 40px;
       border: none;
       padding-left: 15px;
     }
 
+    .location-list {
+      color: #000;
+      list-style-type: none;
+      text-align: left;
+      position: absolute;
+      background-color: #fff;
+      padding: 0;
+      margin: 0;
+      margin-left: -5px;
+      border: 1px solid #ccc;
+
+      li {
+        width: 200px;
+        padding: 5px;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+      }
+    }
+
     .search-input {
-      width: 65%;
+      width: 45%;
       height: 40px;
       border: none;
       border-left: 1px solid #ccc;

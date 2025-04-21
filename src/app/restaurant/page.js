@@ -3,12 +3,11 @@ import React, { useEffect, useState } from "react";
 import RestaurantLogin from "../_components/RestaurantLogin";
 import RestaurantSignUp from "../_components/RestaurantSignUp";
 import ResturantHeader from "../_components/RestaurantHeader";
-import "./style.css";
-import RestaurantFooter from "../_components/RestaurantFooter";
+import "../globals.css";
+import Footer from "../_components/Footer";
 
 const Restaurant = () => {
   const [login, setLogin] = useState(true);
-
 
   return (
     <>
@@ -25,7 +24,7 @@ const Restaurant = () => {
           </button>
         </div>
       </div>
-      <RestaurantFooter />
+      <Footer />
     </>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 import ResturantHeader from "@/app/_components/RestaurantHeader";
 import React, { useState } from "react";
-import "./../style.css";
+import "../../globals.css";
 import AddFoodItem from "@/app/_components/AddFoodItem";
 import FoodItemList from "@/app/_components/FoodItemList";
 

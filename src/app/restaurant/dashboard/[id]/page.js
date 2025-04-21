@@ -21,7 +21,6 @@ const EditFoodItems = ({ params }) => {
     );
     response = await response.json();
     if (response.success) {
-      console.log(response.result);
       setName(response.result.name);
       setPrice(response.result.price);
       setPath(response.result.img_path);
@@ -30,7 +29,6 @@ const EditFoodItems = ({ params }) => {
   };
 
   const handleEditFoodItem = async () => {
-    console.log(name, price, path, description);
     if (!name || !path || !price || !description) {
       setError(true);
       return false;

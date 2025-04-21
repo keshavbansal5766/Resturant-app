@@ -2,6 +2,47 @@ body {
   font-family: sans-serif;
 }
 
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  ul {
+    display: flex;
+
+    li {
+      list-style-type: none;
+      padding: 5px;
+
+      a {
+        text-decoration: none;
+      }
+
+      button {
+        background-color: transparent;
+        border: none;
+        color: rgb(160, 65, 248);
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.footer-wrapper {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  background-color: #fff;
+}
+
+.input-error {
+  position: absolute;
+  padding: 8px;
+  color: red;
+  font-size: 13px;
+}
+
 .input-wrapper {
   margin: 10px;
 }

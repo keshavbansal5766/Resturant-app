@@ -1,6 +1,6 @@
 import React from "react";
 
-const RestaurantFooter = () => {
+const Footer = () => {
   return (
     <div className="footer-wrapper">
       <h3>All rights reserved by Resto app</h3>
@@ -8,4 +8,4 @@ const RestaurantFooter = () => {
   );
 };
 
-export default RestaurantFooter;
+export default Footer;

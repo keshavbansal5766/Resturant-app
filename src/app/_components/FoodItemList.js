@@ -11,7 +11,7 @@ const FoodItemList = () => {
 
   const loadFoodItems = async () => {
     const restaurantData = JSON.parse(localStorage.getItem("restaurantUser"));
-    const resto_id = restaurantData._id;
+    const resto_id = restaurantData?._id;
     let response = await fetch(
       "http://localhost:3000/api/restaurant/foods/" + resto_id
     );

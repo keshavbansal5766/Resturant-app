@@ -1,16 +1,15 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import "../../style.css";
+import { useRouter } from "next/navigation";
+import { use, useEffect, useState } from "react";
 
-const EditFoodItem = () => {
+const EditFoodItems = ({ params }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [path, setPath] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(false);
-  const params = useParams();
   const router = useRouter();
+  const { id } = use(params);
 
   useEffect(() => {
     handleLoadFoodItem();
@@ -18,11 +17,11 @@ const EditFoodItem = () => {
 
   const handleLoadFoodItem = async () => {
     let response = await fetch(
-      `http://localhost:3000/api/restaurant/foods/edit/${params.id}`
+      "http://localhost:3000/api/restaurant/foods/edit/" + id
     );
-
     response = await response.json();
     if (response.success) {
+      console.log(response.result);
       setName(response.result.name);
       setPrice(response.result.price);
       setPath(response.result.img_path);
@@ -31,6 +30,7 @@ const EditFoodItem = () => {
   };
 
   const handleEditFoodItem = async () => {
+    console.log(name, price, path, description);
     if (!name || !path || !price || !description) {
       setError(true);
       return false;
@@ -38,16 +38,24 @@ const EditFoodItem = () => {
       setError(false);
     }
 
-    setName("");
-    setPrice("");
-    setPath("");
-    setDescription("");
+    let response = await fetch(
+      "http://localhost:3000/api/restaurant/foods/edit/" + id,
+      {
+        method: "PUT",
+        body: JSON.stringify({ name, price, img_path: path, description }),
+      }
+    );
+    response = await response.json();
+    if (response.success) {
+      router.push("../dashboard");
+    } else {
+      alert("data is not updated please try again");
+    }
   };
-  console.log();
 
   return (
     <div className="container">
-      <h1>Update Food Item</h1>
+      <h1> Update Food Item</h1>
       <div className="input-wrapper">
         <input
           type="text"
@@ -57,7 +65,7 @@ const EditFoodItem = () => {
           onChange={(e) => setName(e.target.value)}
         />
         {error && !name && (
-          <span className="input-error">Please enter name</span>
+          <span className="input-error">Please enter valid name</span>
         )}
       </div>
       <div className="input-wrapper">
@@ -69,7 +77,7 @@ const EditFoodItem = () => {
           onChange={(e) => setPrice(e.target.value)}
         />
         {error && !price && (
-          <span className="input-error">Please enter price</span>
+          <span className="input-error">Please enter valid price</span>
         )}
       </div>
       <div className="input-wrapper">
@@ -81,7 +89,7 @@ const EditFoodItem = () => {
           onChange={(e) => setPath(e.target.value)}
         />
         {error && !path && (
-          <span className="input-error">Please enter path</span>
+          <span className="input-error">Please enter valid path</span>
         )}
       </div>
       <div className="input-wrapper">
@@ -93,7 +101,7 @@ const EditFoodItem = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
         {error && !description && (
-          <span className="input-error">Please enter description</span>
+          <span className="input-error">Please enter valid description</span>
         )}
       </div>
       <div className="input-wrapper">
@@ -102,17 +110,12 @@ const EditFoodItem = () => {
         </button>
       </div>
       <div className="input-wrapper">
-        <button
-          className="button"
-          onClick={() => {
-            router.push("../dashboard");
-          }}
-        >
-          Back to Food Item List
+        <button className="button" onClick={() => router.push("../dashboard")}>
+          Back to Food Item list
         </button>
       </div>
     </div>
   );
 };
 
-export default EditFoodItem;
+export default EditFoodItems;

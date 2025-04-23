@@ -7,9 +7,11 @@ export default function Home() {
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [showLocation, setShowLocation] = useState(false);
+  const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
     loadLocations();
+    loadRestaurants();
   }, []);
 
   const loadLocations = async () => {
@@ -25,6 +27,16 @@ export default function Home() {
     setShowLocation(false);
   };
 
+  const loadRestaurants = async () => {
+    let response = await fetch("http://localhost:3000/api/customer");
+    response = await response.json();
+    if (response.success) {
+      setRestaurants(response.result);
+    }
+  };
+
+  console.log(restaurants);
+
   return (
     <main>
       <CustomerHeader />
@@ -34,7 +46,7 @@ export default function Home() {
           <input
             type="text"
             defaultValue={selectedLocation}
-            onClick={() => setShowLocation(prev => !prev)}
+            onClick={() => setShowLocation((prev) => !prev)}
             className="select-input"
             placeholder="Select place"
           />
@@ -52,6 +64,24 @@ export default function Home() {
             placeholder="Enter food or resturant name"
           />
         </div>
+      </div>
+      <div className="restaurant-list-container">
+        {restaurants.map((item, i) => (
+          <div className="restaurant-wrapper" key={i}>
+            <div className="heading-wrapper">
+              <h3>{item.name}</h3>
+              <h5>Contact: {item.contact}</h5>
+            </div>
+            <div className="address-wrapper">
+              <div>
+                City: {item.city.charAt(0).toUpperCase() + item.city.slice(1)},
+              </div>
+              <div>
+                Address: {item.address}, Email: {item.email}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
       <Footer />
     </main>

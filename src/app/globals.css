@@ -138,3 +138,27 @@ table img {
     }
   }
 }
+.restaurant-list-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  margin-bottom: 50px;
+
+  .restaurant-wrapper {
+    width: 45%;
+    background-color: orange;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #aaa;
+    cursor: pointer;
+
+    .heading-wrapper,
+    .address-wrapper {
+      padding-left: 15px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-start;
+    }
+  }
+}

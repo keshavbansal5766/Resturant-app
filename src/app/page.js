@@ -25,10 +25,17 @@ export default function Home() {
   const handleListItem = (item) => {
     setSelectedLocation(item);
     setShowLocation(false);
+    loadRestaurants({ location: item });
   };
 
-  const loadRestaurants = async () => {
-    let response = await fetch("http://localhost:3000/api/customer");
+  const loadRestaurants = async (params) => {
+    let url = "http://localhost:3000/api/customer";
+    if (params?.location) {
+      url = url + "?location=" + params.location;
+    } else if (params?.restaurant) {
+      url = url + "?restaurant=" + params.restaurant;
+    }
+    let response = await fetch(url);
     response = await response.json();
     if (response.success) {
       setRestaurants(response.result);
@@ -60,6 +67,7 @@ export default function Home() {
           </ul>
           <input
             type="text"
+            onChange={(e) => loadRestaurants({ restaurant: e.target.value })}
             className="search-input"
             placeholder="Enter food or resturant name"
           />

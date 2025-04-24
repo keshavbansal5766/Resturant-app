@@ -7,6 +7,23 @@ const page = ({ params, searchParams }) => {
   const [restaurantDetails, setRestaurantDetails] = useState("");
   const [foodItems, setFoodItems] = useState([]);
   const [cartData, setCartData] = useState();
+  const [cartStorage, setCartStorage] = useState(() => {
+    if (typeof window !== "undefined") {
+      const storedCart = localStorage.getItem("cart");
+      return storedCart ? JSON.parse(storedCart) : [];
+    }
+    return [];
+  });
+  const [cartIds, setCardIds] = useState(
+    cartStorage
+      ? () =>
+          cartStorage.map((item) => {
+            return item._id;
+          })
+      : []
+  );
+
+  console.log(cartIds);
 
   const { name } = use(params);
   const { id } = use(searchParams);
@@ -26,6 +43,10 @@ const page = ({ params, searchParams }) => {
 
   const addToCart = (item) => {
     setCartData(item);
+
+    let localCartIds = cartIds;
+    localCartIds.push(item._id);
+    setCardIds(localCartIds);
   };
 
   return (
@@ -52,7 +73,11 @@ const page = ({ params, searchParams }) => {
                   <div>{item.name}</div>
                   <div>{item.price}</div>
                   <div className="description">{item.description}</div>
-                  <button onClick={() => addToCart(item)}>Add to Cart</button>
+                  {cartIds?.includes(item._id) ? (
+                    <button>Remove From Cart</button>
+                  ) : (
+                    <button onClick={() => addToCart(item)}>Add to Cart</button>
+                  )}
                 </div>
               </div>
             );

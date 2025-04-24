@@ -23,3 +23,24 @@
       return updatedCart;
     });
   }, [cartData]);
+
+
+
+
+
+
+
+
+
+  const [cartStorage, setCartStorage] = useState(() => {
+    if (typeof window !== "undefined") {
+      const storedCart = localStorage.getItem("cart");
+      return storedCart ? JSON.parse(storedCart) : [];
+    }
+    return [];
+  });
+  const [cartIds, setCardIds] = useState(() =>
+    cartStorage?.map((item) => {
+      return item._id;
+    })
+  );

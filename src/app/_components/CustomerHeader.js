@@ -2,42 +2,32 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const CustomerHeader = ({ cartData }) => {
-  const [cartStorage, setCartStorage] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
-  const [cartNumber, setCartNumber] = useState(cartStorage?.length);
-  const [cartItem, setCartItem] = useState(cartStorage);
-
+  // Load cart from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-      setCartStorage(storedCart);
+      setCartItems(storedCart);
     }
   }, []);
 
+  // Update cart when cartData changes
   useEffect(() => {
-    if (cartData) {
-      if (cartNumber) {
-        if (cartItem[0].resto_id !== cartData.resto_id) {
-          localStorage.removeItem("cart");
-          setCartNumber(1);
-          setCartItem([cartData]);
-          localStorage.setItem("cart", JSON.stringify([cartData]));
-        } else {
-          let localCartItem = cartItem;
-          localCartItem.push(JSON.parse(JSON.stringify(cartData)));
-          setCartItem(localCartItem);
-          setCartNumber(cartNumber + 1);
-          localStorage.setItem("cart", JSON.stringify(localCartItem));
-        }
-      } else {
-        setCartNumber(1);
-        setCartItem([cartData]);
-        localStorage.setItem("cart", JSON.stringify([cartData]));
-      }
-    }
+    if (!cartData) return;
+
+    setCartItems((prevCart) => {
+      const isSameResto = prevCart[0]?.resto_id === cartData.resto_id;
+
+      const updatedCart = isSameResto
+        ? [...prevCart, { ...cartData }]
+        : [{ ...cartData }];
+
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      return updatedCart;
+    });
   }, [cartData]);
 
-  console.log(cartItem);
   return (
     <div className="header-wrapper">
       <div className="logo">
@@ -57,7 +47,7 @@ const CustomerHeader = ({ cartData }) => {
           <Link href="">Sign Up</Link>
         </li>
         <li>
-          <Link href="">Cart({cartNumber ? cartNumber : 0})</Link>
+          <Link href="">Cart({cartItems ? cartItems.length : 0})</Link>
         </li>
         <li>
           <Link href="">Add Resturant</Link>

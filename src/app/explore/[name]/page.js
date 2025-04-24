@@ -1,5 +1,4 @@
 "use client";
-
 import CustomerHeader from "@/app/_components/CustomerHeader";
 import Footer from "@/app/_components/Footer";
 import React, { use, useEffect, useState } from "react";
@@ -7,6 +6,7 @@ import React, { use, useEffect, useState } from "react";
 const page = ({ params, searchParams }) => {
   const [restaurantDetails, setRestaurantDetails] = useState("");
   const [foodItems, setFoodItems] = useState([]);
+  const [cartData, setCartData] = useState();
 
   const { name } = use(params);
   const { id } = use(searchParams);
@@ -24,9 +24,13 @@ const page = ({ params, searchParams }) => {
     }
   };
 
+  const addToCart = (item) => {
+    setCartData(item);
+  };
+
   return (
     <>
-      <CustomerHeader />
+      <CustomerHeader cartData={cartData} />
       <div className="restaurant-page-banner">
         <h1>{decodeURI(name)}</h1>
       </div>
@@ -48,7 +52,7 @@ const page = ({ params, searchParams }) => {
                   <div>{item.name}</div>
                   <div>{item.price}</div>
                   <div className="description">{item.description}</div>
-                  <button>Add to Cart</button>
+                  <button onClick={() => addToCart(item)}>Add to Cart</button>
                 </div>
               </div>
             );

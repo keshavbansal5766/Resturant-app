@@ -1,0 +1,25 @@
+  const [cartItems, setCartItems] = useState([]);
+
+  // Load cart from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+      setCartItems(storedCart);
+    }
+  }, []);
+
+  // Update cart when cartData changes
+  useEffect(() => {
+    if (!cartData) return;
+
+    setCartItems((prevCart) => {
+      const isSameResto = prevCart[0]?.resto_id === cartData.resto_id;
+
+      const updatedCart = isSameResto
+        ? [...prevCart, { ...cartData }]
+        : [{ ...cartData }];
+
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+  }, [cartData]);

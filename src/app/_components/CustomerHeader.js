@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const CustomerHeader = ({ cartData }) => {
+const CustomerHeader = ({ cartData, removeCartData }) => {
   const [cartItems, setCartItems] = useState([]);
 
   // Load cart from localStorage on mount
@@ -27,6 +27,19 @@ const CustomerHeader = ({ cartData }) => {
       return updatedCart;
     });
   }, [cartData]);
+
+  useEffect(() => {
+    if (removeCartData) {
+      let localCartItem = cartItems.filter((item) => {
+        return item._id !== removeCartData;
+      });
+      setCartItems(localCartItem);
+      localStorage.setItem("cart", JSON.stringify(localCartItem));
+      if (localCartItem.length === 0) {
+        localStorage.removeItem("cart");
+      }
+    }
+  }, [removeCartData]);
 
   return (
     <div className="header-wrapper">

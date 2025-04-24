@@ -22,6 +22,7 @@ const page = ({ params, searchParams }) => {
           })
       : []
   );
+  const [removeCartData, setRemoveCartData] = useState();
 
   console.log(cartIds);
 
@@ -43,15 +44,22 @@ const page = ({ params, searchParams }) => {
 
   const addToCart = (item) => {
     setCartData(item);
-
     let localCartIds = cartIds;
     localCartIds.push(item._id);
     setCardIds(localCartIds);
+    setRemoveCartData();
+  };
+
+  const removeFromCart = (id) => {
+    setRemoveCartData(id);
+    let localIds = cartIds.filter((item) => item !== id);
+    setCartData();
+    setCardIds(localIds);
   };
 
   return (
     <>
-      <CustomerHeader cartData={cartData} />
+      <CustomerHeader cartData={cartData} removeCartData={removeCartData} />
       <div className="restaurant-page-banner">
         <h1>{decodeURI(name)}</h1>
       </div>
@@ -74,7 +82,9 @@ const page = ({ params, searchParams }) => {
                   <div>{item.price}</div>
                   <div className="description">{item.description}</div>
                   {cartIds?.includes(item._id) ? (
-                    <button>Remove From Cart</button>
+                    <button onClick={() => removeFromCart(item._id)}>
+                      Remove From Cart
+                    </button>
                   ) : (
                     <button onClick={() => addToCart(item)}>Add to Cart</button>
                   )}

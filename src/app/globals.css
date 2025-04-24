@@ -9,6 +9,15 @@ body {
 .header-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  .logo {
+    img {
+      max-width: 200px;
+      max-height: 70px; /* or any size you prefer */
+      display: block;
+    }
+  }
 
   ul {
     display: flex;
@@ -166,4 +175,46 @@ table img {
 
 .restaurant-page-banner {
   font-size: 65px;
+}
+
+.detail-wrapper {
+  display: flex;
+  background-color: orange;
+
+  h4 {
+    width: 50%;
+  }
+}
+
+.food-item-wrapper {
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  .list-item {
+    display: flex;
+    align-items: center;
+    color: orange;
+    font-weight: bold;
+    border-bottom: 1px solid orange;
+    padding: 20px;
+    text-transform: capitalize;
+
+    button {
+      color: #fff;
+      border: none;
+      background-color: orange;
+      padding: 5px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .description {
+      font-weight: lighter;
+    }
+
+    img {
+      width: 100px;
+      padding-right: 20px;
+    }
+  }
 }

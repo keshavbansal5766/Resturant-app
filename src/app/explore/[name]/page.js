@@ -1,5 +1,7 @@
 "use client";
 
+import CustomerHeader from "@/app/_components/CustomerHeader";
+import Footer from "@/app/_components/Footer";
 import React, { use, useEffect, useState } from "react";
 
 const page = ({ params, searchParams }) => {
@@ -24,27 +26,38 @@ const page = ({ params, searchParams }) => {
 
   return (
     <>
+      <CustomerHeader />
       <div className="restaurant-page-banner">
         <h1>{decodeURI(name)}</h1>
       </div>
-      <div>
-        <h3>{restaurantDetails?.contact}</h3>
-        <h3>{restaurantDetails?.city}</h3>
-        <h3>{restaurantDetails?.address}</h3>
-        <h3>{restaurantDetails?.email}</h3>
+      <div className="detail-wrapper">
+        <h4>Contact: {restaurantDetails?.contact}</h4>
+        <h4>City: {restaurantDetails?.city}</h4>
+        <h4>Address: {restaurantDetails?.address}</h4>
+        <h4>Email: {restaurantDetails?.email}</h4>
       </div>
-      <div>
-        {foodItems.map((item, i) => {
-          return (
-            <div key={i}>
-              <div>{item.name}</div>
-              <div>{item.price}</div>
-              <div>{item.description}</div>
-              <img src={item.img_path} alt="" />
-            </div>
-          );
-        })}
+      <div className="food-item-wrapper">
+        {foodItems.length > 0 ? (
+          foodItems.map((item, i) => {
+            return (
+              <div className="list-item" key={i}>
+                <div>
+                  <img src={item.img_path} alt="" />
+                </div>
+                <div>
+                  <div>{item.name}</div>
+                  <div>{item.price}</div>
+                  <div className="description">{item.description}</div>
+                  <button>Add to Cart</button>
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <h1>No Food Item Added Now</h1>
+        )}
       </div>
+      <Footer />
     </>
   );
 };

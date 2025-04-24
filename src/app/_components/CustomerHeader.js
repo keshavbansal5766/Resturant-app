@@ -6,7 +6,7 @@ const CustomerHeader = () => {
     <div className="header-wrapper">
       <div className="logo">
         <img
-          style={{ width: 200 }}
+        
           src="https://png.pngtree.com/template/20200610/ourmid/pngtree-food-delivery-logo-design-image_381319.jpg"
           alt=""
         />

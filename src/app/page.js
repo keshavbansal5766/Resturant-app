@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import CustomerHeader from "./_components/CustomerHeader";
 import Footer from "./_components/Footer";
 import { useEffect, useState } from "react";
@@ -8,6 +9,7 @@ export default function Home() {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [showLocation, setShowLocation] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     loadLocations();
@@ -42,8 +44,6 @@ export default function Home() {
     }
   };
 
-  console.log(restaurants);
-
   return (
     <main>
       <CustomerHeader />
@@ -75,7 +75,11 @@ export default function Home() {
       </div>
       <div className="restaurant-list-container">
         {restaurants.map((item, i) => (
-          <div className="restaurant-wrapper" key={i}>
+          <div
+            onClick={() => router.push("explore/" + item.name)}
+            className="restaurant-wrapper"
+            key={i}
+          >
             <div className="heading-wrapper">
               <h3>{item.name}</h3>
               <h5>Contact: {item.contact}</h5>

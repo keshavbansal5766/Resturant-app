@@ -76,7 +76,9 @@ export default function Home() {
       <div className="restaurant-list-container">
         {restaurants.map((item, i) => (
           <div
-            onClick={() => router.push("explore/" + item.name)}
+            onClick={() =>
+              router.push("explore/" + item.name + "?id=" + item._id)
+            }
             className="restaurant-wrapper"
             key={i}
           >

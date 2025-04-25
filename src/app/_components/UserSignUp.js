@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CustomerHeader from "./CustomerHeader";
+import { useRouter } from "next/navigation";
 
 const UserSignUp = () => {
   const [name, setName] = useState("");
@@ -9,6 +10,7 @@ const UserSignUp = () => {
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
+  const router = useRouter();
 
   const handleSignUp = async () => {
     console.log(name, email, password, confirmPassword, city, address, contact);
@@ -21,7 +23,10 @@ const UserSignUp = () => {
     response = await response.json();
 
     if (response.success) {
-      alert("User created");
+      const { result } = response;
+      delete result.password;
+      localStorage.setItem("user", JSON.stringify(result));
+      router.push("/");
     } else {
       alert("failed");
     }

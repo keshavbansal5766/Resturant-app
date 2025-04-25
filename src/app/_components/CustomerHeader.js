@@ -40,6 +40,7 @@ const CustomerHeader = ({ cartData, removeCartData }) => {
       }
     }
   }, [removeCartData]);
+  console.log(cartItems);
 
   return (
     <div className="header-wrapper">
@@ -60,7 +61,9 @@ const CustomerHeader = ({ cartData, removeCartData }) => {
           <Link href="">Sign Up</Link>
         </li>
         <li>
-          <Link href="">Cart({cartItems ? cartItems.length : 0})</Link>
+          <Link href={cartItems.length > 0 ? "/cart" : "#"}>
+            Cart({cartItems ? cartItems.length : 0})
+          </Link>
         </li>
         <li>
           <Link href="">Add Resturant</Link>

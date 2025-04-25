@@ -219,7 +219,6 @@ table img {
   }
 }
 
-
 .list-item-block-1 {
   width: 20%;
 }
@@ -229,4 +228,38 @@ table img {
 }
 .list-item-block-3 {
   width: 20%;
+}
+
+.total-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid orange;
+  padding: 20px;
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20%;
+    margin-right: 20%;
+    color: orange;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .block-1 {
+    width: 70%;
+  }
+
+  .block-2 {
+    width: 30%;
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: orange;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
 }

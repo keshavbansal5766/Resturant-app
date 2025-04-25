@@ -10,6 +10,18 @@ const UserSignUp = () => {
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
 
+  const handleSignUp = () => {
+    console.log(name, email, password, confirmPassword, city, address, contact);
+
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setCity("");
+    setAddress("");
+    setContact("");
+  };
+
   return (
     <div>
       <div className="input-wrapper">
@@ -76,7 +88,9 @@ const UserSignUp = () => {
         />
       </div>
       <div className="input-wrapper">
-        <button className="button">SignUp</button>
+        <button onClick={handleSignUp} className="button">
+          SignUp
+        </button>
       </div>
     </div>
   );

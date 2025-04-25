@@ -14,8 +14,6 @@ const CustomerHeader = ({ cartData, removeCartData }) => {
     }
   }, []);
 
-  console.log(user);
-
   // Load cart from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -55,7 +53,7 @@ const CustomerHeader = ({ cartData, removeCartData }) => {
 
   const handleLogOut = () => {
     localStorage.removeItem("user");
-    router.push('/user-auth')
+    router.push("/user-auth");
   };
 
   return (
@@ -84,7 +82,7 @@ const CustomerHeader = ({ cartData, removeCartData }) => {
         ) : (
           <>
             <li>
-              <Link href="">Login</Link>
+              <Link href="/user-auth">Login</Link>
             </li>
             <li>
               <Link href="/user-auth">Sign Up</Link>

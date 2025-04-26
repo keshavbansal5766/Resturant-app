@@ -105,7 +105,9 @@ const Cart = () => {
     setCartData(null);
   };
 
-  console.log(restData.name);
+  const orderNow = () => {
+    router.push("/order");
+  };
 
   return (
     <>
@@ -161,16 +163,17 @@ const Cart = () => {
           </div>
         </div>
         <div className="block-2">
-          <button>Order Now</button>
-          <div
+          <button onClick={orderNow}>Order Now</button>
+          <button 
+          className="go-to-rest"
             onClick={() =>
               router.push(
-                "../explore/" + restData[0]?.name + "?id=" + restData[0]?._id
+                "explore/" + restData[0]?.name + "?id=" + restData[0]?._id
               )
             }
           >
             Go To restaurant
-          </div>
+          </button>
         </div>
       </div>
       <Footer />

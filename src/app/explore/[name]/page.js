@@ -24,8 +24,6 @@ const page = ({ params, searchParams }) => {
   );
   const [removeCartData, setRemoveCartData] = useState();
 
-  console.log(cartIds);
-
   const { name } = use(params);
   const { id } = use(searchParams);
 

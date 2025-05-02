@@ -35,6 +35,7 @@ body {
         border: none;
         color: rgb(160, 65, 248);
         font-size: 16px;
+        cursor: pointer;
       }
     }
   }

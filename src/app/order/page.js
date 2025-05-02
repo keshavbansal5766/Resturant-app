@@ -15,20 +15,24 @@ const Cart = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedUser = localStorage.getItem("user");
+      const storedCart = localStorage.getItem("cart");
       if (storedUser) {
         setUserStorage(JSON.parse(storedUser));
       }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedCart = localStorage.getItem("cart");
       if (storedCart) {
         setCartStorage(JSON.parse(storedCart));
       }
     }
   }, []);
+
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const storedCart = localStorage.getItem("cart");
+  //     if (storedCart) {
+  //       setCartStorage(JSON.parse(storedCart));
+  //     }
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (cartStorage?.length > 0) {
@@ -42,6 +46,36 @@ const Cart = () => {
       setTotal(0); // in case it's empty
     }
   }, [cartStorage]);
+
+  const orderNow = async () => {
+    let user_id = userStorage?._id;
+    let cart = cartStorage;
+    let foodItemIds = cart.map((item) => item._id).toString();
+    let resto_id = cart[0]?.resto_id;
+    let deliveryBoy_id = "68062457be843830c97ac113";
+
+    let collection = {
+      user_id,
+      resto_id,
+      foodItemIds,
+      deliveryBoy_id,
+      status: "confirm",
+      amount: total + DELIVERY_CHARGES + (total * TAX) / 100,
+    };
+    let response = await fetch("http://localhost:3000/api/order", {
+      method: "POST",
+      body: JSON.stringify(collection),
+    });
+
+    response = await response.json();
+    if (response.success) {
+      alert("order confirm");
+    } else {
+      alert("order failed");
+    }
+
+    console.log(collection);
+  };
 
   return (
     <>
@@ -94,7 +128,7 @@ const Cart = () => {
           </div>
         </div>
         <div className="block-2">
-          <button>Place Your Order Now</button>
+          <button onClick={orderNow}>Place Your Order Now</button>
         </div>
       </div>
       <Footer />

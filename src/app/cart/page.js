@@ -106,7 +106,11 @@ const Cart = () => {
   };
 
   const orderNow = () => {
-    router.push("/order");
+    if (JSON.parse(localStorage.getItem("user"))) {
+      router.push("/order");
+    } else {
+      router.push("/user-auth?order=true");
+    }
   };
 
   return (
@@ -164,8 +168,8 @@ const Cart = () => {
         </div>
         <div className="block-2">
           <button onClick={orderNow}>Order Now</button>
-          <button 
-          className="go-to-rest"
+          <button
+            className="go-to-rest"
             onClick={() =>
               router.push(
                 "explore/" + restData[0]?.name + "?id=" + restData[0]?._id

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CustomerHeader from "./CustomerHeader";
 import { useRouter } from "next/navigation";
 
-const UserSignUp = () => {
+const UserSignUp = ({ redirect }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +26,11 @@ const UserSignUp = () => {
       const { result } = response;
       delete result.password;
       localStorage.setItem("user", JSON.stringify(result));
-      router.push("/");
+      if (redirect?.order) {
+        router.push("/order");
+      } else {
+        router.push("/");
+      }
     } else {
       alert("failed");
     }

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const CustomerHeader = ({ cartData, removeCartData }) => {
+const CustomerHeader = ({ cartData, removeCartData, removeUserCartData }) => {
   const [cartItems, setCartItems] = useState([]);
   const [user, setUser] = useState();
   const router = useRouter();
@@ -55,6 +55,13 @@ const CustomerHeader = ({ cartData, removeCartData }) => {
     localStorage.removeItem("user");
     router.push("/user-auth");
   };
+
+  useEffect(() => {
+    if (removeUserCartData) {
+      setCartItems([]);
+      localStorage.removeItem("cart");
+    }
+  }, [removeUserCartData]);
 
   return (
     <div className="header-wrapper">

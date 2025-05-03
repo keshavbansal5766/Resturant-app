@@ -10,6 +10,7 @@ const Cart = () => {
   const [cartStorage, setCartStorage] = useState([]);
   const [total, setTotal] = useState();
   const [userStorage, setUserStorage] = useState();
+  const [removeUserCartData, setRemoveUserCartData] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -25,14 +26,15 @@ const Cart = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const storedCart = localStorage.getItem("cart");
-  //     if (storedCart) {
-  //       setCartStorage(JSON.parse(storedCart));
-  //     }
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedCart = localStorage.getItem("cart");
+      const parsed = storedCart ? JSON.parse(storedCart) : null;
+      if (!parsed || parsed.length === 0) {
+        router.push("/");
+      }
+    }
+  }, [total]);
 
   useEffect(() => {
     if (cartStorage?.length > 0) {
@@ -70,16 +72,18 @@ const Cart = () => {
     response = await response.json();
     if (response.success) {
       alert("order confirm");
+      setRemoveUserCartData(true);
+      router.push("myprofile");
     } else {
       alert("order failed");
     }
-
-    console.log(collection);
   };
+
+  console.log(cartStorage);
 
   return (
     <>
-      <CustomerHeader />
+      <CustomerHeader removeUserCartData={removeUserCartData} />
 
       <div className="total-wrapper">
         <div className="block-1">

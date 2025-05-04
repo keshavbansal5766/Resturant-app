@@ -80,7 +80,7 @@ const CustomerHeader = ({ cartData, removeCartData, removeUserCartData }) => {
         {user ? (
           <>
             <li>
-              <Link href="#">{user?.name}</Link>
+              <Link href="/myprofile">{user?.name}</Link>
             </li>
             <li>
               <button onClick={handleLogOut}>LogOut</button>

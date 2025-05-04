@@ -155,22 +155,23 @@ table img {
   flex-wrap: wrap;
   margin-top: 40px;
   margin-bottom: 50px;
+}
 
-  .restaurant-wrapper {
-    width: 45%;
-    background-color: orange;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #aaa;
-    cursor: pointer;
+.restaurant-wrapper {
+  width: 45%;
+  background-color: orange;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #aaa;
+  cursor: pointer;
+  border-radius: 5px;
 
-    .heading-wrapper,
-    .address-wrapper {
-      padding-left: 15px;
-      display: flex;
-      gap: 10px;
-      justify-content: flex-start;
-    }
+  .heading-wrapper,
+  .address-wrapper {
+    padding-left: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
   }
 }
 
@@ -267,4 +268,9 @@ table img {
       margin-top: 10px;
     }
   }
+}
+
+.profile-wrapper {
+  margin-left: auto;
+  margin-right: auto;
 }

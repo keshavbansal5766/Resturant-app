@@ -11,11 +11,64 @@ const deliveryPartner = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
-  const [signupMobile, setSignupMobile] = useState("");
+  const [mobile, setMobile] = useState("");
   const router = useRouter();
 
-  const handleLogin = () => {};
-  const handleSignUp = () => {};
+  const handleLogin = async () => {
+    let response = await fetch(
+      "http://localhost:3000/api/deliverypartners/login",
+      {
+        method: "POST",
+        body: JSON.stringify({ loginMobile, loginPassword }),
+      }
+    );
+    response = await response.json();
+    if (response.success) {
+      const { result } = response;
+      delete result.password;
+      localStorage.setItem("deliveryPartner", JSON.stringify(result));
+      alert("success");
+    } else {
+      alert("Failed to login please try again with valid mobile and password");
+    }
+
+    setLoginMobile("");
+    setLoginPassword("");
+  };
+
+  const handleSignUp = async () => {
+    let response = await fetch(
+      "http://localhost:3000/api/deliverypartners/signup",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          mobile,
+          password,
+          city,
+          address,
+        }),
+      }
+    );
+
+    response = await response.json();
+
+    if (response.success) {
+      const { result } = response;
+      delete result.password;
+      localStorage.setItem("deliveryPartner", JSON.stringify(result));
+      alert("Delivery partner registered");
+    } else {
+      alert("failed");
+    }
+
+    setName("");
+    setMobile("");
+    setPassword("");
+    setConfirmPassword("");
+    setCity("");
+    setAddress("");
+  };
   return (
     <div>
       <h1>Delivery Partner</h1>
@@ -60,9 +113,9 @@ const deliveryPartner = () => {
           <div className="input-wrapper">
             <input
               type="text"
-              value={signupMobile}
+              value={mobile}
               className="input-field"
-              onChange={(e) => setSignupMobile(e.target.value)}
+              onChange={(e) => setMobile(e.target.value)}
               placeholder="Enter Mobile No."
             />
           </div>

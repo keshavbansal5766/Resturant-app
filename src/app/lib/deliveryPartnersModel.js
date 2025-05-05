@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 
 const deliveryPartnersModel = new mongoose.Schema({
   name: String,
-  signupMobile: String,
+  mobile: String,
   password: String,
   city: String,
   address: String,

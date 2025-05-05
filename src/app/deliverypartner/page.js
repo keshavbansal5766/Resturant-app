@@ -11,7 +11,7 @@ const deliveryPartner = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
-  const [contact, setContact] = useState("");
+  const [signupMobile, setSignupMobile] = useState("");
   const router = useRouter();
 
   const handleLogin = () => {};
@@ -60,10 +60,10 @@ const deliveryPartner = () => {
           <div className="input-wrapper">
             <input
               type="text"
-              value={contact}
+              value={signupMobile}
               className="input-field"
-              onChange={(e) => setContact(e.target.value)}
-              placeholder="Enter Contact No."
+              onChange={(e) => setSignupMobile(e.target.value)}
+              placeholder="Enter Mobile No."
             />
           </div>
           <div className="input-wrapper">

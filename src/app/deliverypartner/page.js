@@ -1,9 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import DeliveryPartnerHeader from "../_components/DeliveryPartnerHeader";
 
-const deliveryPartner = () => {
+const DeliveryPartner = () => {
   const [loginMobile, setLoginMobile] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [name, setName] = useState("");
@@ -13,6 +14,17 @@ const deliveryPartner = () => {
   const [address, setAddress] = useState("");
   const [mobile, setMobile] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const deliveryPartner = JSON.parse(
+        localStorage.getItem("deliveryPartner")
+      );
+      if (deliveryPartner) {
+        router.push("deliverydashboard");
+      }
+    }
+  }, []);
 
   const handleLogin = async () => {
     let response = await fetch(
@@ -27,7 +39,7 @@ const deliveryPartner = () => {
       const { result } = response;
       delete result.password;
       localStorage.setItem("deliveryPartner", JSON.stringify(result));
-      alert("success");
+      router.push("deliverydashboard");
     } else {
       alert("Failed to login please try again with valid mobile and password");
     }
@@ -57,7 +69,7 @@ const deliveryPartner = () => {
       const { result } = response;
       delete result.password;
       localStorage.setItem("deliveryPartner", JSON.stringify(result));
-      alert("Delivery partner registered");
+      router.push("deliverydashboard");
     } else {
       alert("failed");
     }
@@ -71,6 +83,7 @@ const deliveryPartner = () => {
   };
   return (
     <div>
+      <DeliveryPartnerHeader />
       <h1>Delivery Partner</h1>
       <div className="auth-container">
         <div className="login-wrapper">
@@ -167,4 +180,4 @@ const deliveryPartner = () => {
   );
 };
 
-export default deliveryPartner;
+export default DeliveryPartner;

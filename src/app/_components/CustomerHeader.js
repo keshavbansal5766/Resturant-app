@@ -106,6 +106,9 @@ const CustomerHeader = ({ cartData, removeCartData, removeUserCartData }) => {
         <li>
           <Link href="">Add Resturant</Link>
         </li>
+        <li>
+          <Link href="/deliverypartner">Delivery Partner</Link>
+        </li>
       </ul>
     </div>
   );

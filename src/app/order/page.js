@@ -51,10 +51,25 @@ const Cart = () => {
 
   const orderNow = async () => {
     let user_id = userStorage?._id;
+    let city = userStorage?.city;
     let cart = cartStorage;
     let foodItemIds = cart.map((item) => item._id).toString();
     let resto_id = cart[0]?.resto_id;
-    let deliveryBoy_id = "68062457be843830c97ac113";
+    let deliveryBoy_id;
+    let deliveryBoyResponse = await fetch(
+      "http://localhost:3000/api/deliverypartners/" + city
+    );
+
+    deliveryBoyResponse = await deliveryBoyResponse.json();
+
+    if (deliveryBoyResponse.success) {
+      let deliveryBoyIds = deliveryBoyResponse.result.map((item) => item._id);
+      deliveryBoy_id =
+        deliveryBoyIds[Math.floor(Math.random() * deliveryBoyIds.length)];
+    } else {
+      alert("order cant place in ur city");
+      return false;
+    }
 
     let collection = {
       user_id,
@@ -78,8 +93,6 @@ const Cart = () => {
       alert("order failed");
     }
   };
-
-  console.log(cartStorage);
 
   return (
     <>

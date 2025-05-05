@@ -16,7 +16,9 @@ const DeliveryPartnerHeader = () => {
         </Link>
       </div>
       <ul>
-        <li href="/">Home</li>
+        <li>
+          <Link href="/">Home</Link>
+        </li>
       </ul>
     </div>
   );
